@@ -1,32 +1,37 @@
 package dev.echo.adminitems.managers;
 
+
 import dev.echo.adminitems.Adminitems;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
 
-public final class FileManager {
+public class FileManager {
 
-    private YamlConfiguration configuration;
+    private File messages;
 
-    public FileManager(Adminitems main){
+    private YamlConfiguration config;
 
+    public void makeMessageYaml(Adminitems main){
 
-
-        File config = new File(main.getDataFolder(), "config.yml");
-
-        this.configuration = YamlConfiguration.loadConfiguration(config);
+        this.messages = new File(main.getDataFolder(), "messages.yml");
 
 
-        if(!config.exists() && main.getDataFolder().exists()){
 
+        this.config = YamlConfiguration.loadConfiguration(messages);
+
+        if(!main.getDataFolder().exists() && !messages.exists()){
+            messages.mkdir();
             main.getDataFolder().mkdir();
-            config.mkdir();
         }
-
 
     }
 
+    public File getMessages() {
+        return messages;
+    }
 
+    public YamlConfiguration getMessageConfig() {
+        return config;
+    }
 }

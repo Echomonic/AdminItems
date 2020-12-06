@@ -4,7 +4,6 @@ import dev.echo.adminitems.commands.CommandAdminItem;
 import dev.echo.adminitems.events.JoinEvent;
 import dev.echo.adminitems.managers.FileManager;
 import org.bukkit.Bukkit;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -16,7 +15,12 @@ public final class Adminitems extends JavaPlugin {
     public void onEnable() {
 
         PluginManager pluginManager = Bukkit.getPluginManager();
-        this.fileManager = new FileManager(this);
+
+        fileManager = new FileManager();
+
+        fileManager.makeMessageYaml(this);
+        saveResource(fileManager.getMessages().getName(), false);
+
 
         getCommands();
         getEvents(pluginManager);
@@ -28,7 +32,7 @@ public final class Adminitems extends JavaPlugin {
 
     void getCommands(){
 
-        getCommand("adminitem").setExecutor(new CommandAdminItem());
+        getCommand("adminitem").setExecutor(new CommandAdminItem(fileManager));
 
     }
     void getEvents(PluginManager pluginManager){

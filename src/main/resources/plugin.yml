@@ -4,3 +4,8 @@ main: dev.echo.adminitems.Adminitems
 api-version: 1.16
 authors: [ Mason ]
 description: Give custom items to have fun with your community
+
+commands:
+  adminitem:
+    description: give yourself custom items!
+    aliases:  [ adi ]
